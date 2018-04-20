@@ -1,8 +1,12 @@
 import re
+
+import os
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import pandas as pd
+from core.url_visited import UrlVisited
+
 
 class PinnacleScrapper():
 
@@ -25,17 +29,31 @@ class PinnacleScrapper():
             return league_links
 
     def find_odds_for_league(self):
+        url_visited = UrlVisited()
         league_links = self.find_leagues()
         for league_link in league_links:
             league_url = '{}{}'.format(self.base_url, league_link)
-            options = webdriver.ChromeOptions()
-            options.add_argument('headless')
-            browser = webdriver.Chrome(chrome_options=options)
-            browser.get(league_url)
-            html = browser.page_source
-            league_soup = BeautifulSoup(html, 'html.parser')
-            league_table = league_soup.find("table", {"class": "odds-data"})
-            for body in league_table("tbody"):
-                body.unwrap()
-            dfs = pd.read_html(str(league_table), flavor='bs4')
-            print(dfs[0].head())
+            if not url_visited.exists(url_name=league_url):
+                options = webdriver.ChromeOptions()
+                options.add_argument('headless')
+                browser = webdriver.Chrome(chrome_options=options)
+                browser.get(league_url)
+                html = browser.page_source
+                league_soup = BeautifulSoup(html, 'html.parser')
+                league_table = league_soup.find("table", {"class": "odds-data"})
+                try:
+                    for body in league_table("tbody"):
+                        body.unwrap()
+                    dfs = pd.read_html(str(league_table), flavor='bs4')
+                    dfs[0].rename(columns={0: 'time', 1: 'team_name', 2: 'money_line', 3: 'handicap', 4: 'total_1', 5: 'total_2'}, inplace=True)
+                    df_pinnacle = dfs[0]
+                    df_pinnacle = df_pinnacle[pd.notnull(df_pinnacle['team_name'])]
+                    league_name = league_link.split('/')[-1]
+                    data_path = os.path.join(os.getcwd(), 'data', '{}.csv'.format(league_name))
+                    df_pinnacle.to_csv(data_path, index=False)
+                    url_visited.insert_url(league_url)
+                except TypeError as te:
+                    print('error processing {} moving on error is {}'.format(league_url, te))
+            else:
+                print('url {} is already present'.format(league_url))
+

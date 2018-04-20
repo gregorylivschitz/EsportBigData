@@ -1,0 +1,13 @@
+{
+  "nyu_cluster": {
+    "server":"gw.hpc.nyu.edu",
+    "port":22,
+    "username":"",
+    "password":""
+  },
+  "dumbo_cluster": {
+    "server":"localhost",
+    "username":"",
+    "password":""
+  }
+}
