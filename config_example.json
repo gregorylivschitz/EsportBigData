@@ -6,7 +6,8 @@
     "password":""
   },
   "dumbo_cluster": {
-    "server":"localhost",
+    "server":"127.0.0.1",
+    "port":8025,
     "username":"",
     "password":""
   }

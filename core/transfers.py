@@ -11,31 +11,31 @@ class TransferToNYUCluster():
             self.config = json.load(f)
 
     def transfer(self, transfer_from_path, transfer_to_path):
-        server = self.create_tunnel()
-        server.start()
-        print(server.local_bind_port)
-        ssh_dumbo = self.createSSHClient(self.config['dumbo_cluster']['server'],
-                                         server.local_bind_port,
-                                   self.config['dumbo_cluster']['username'],
-                                   self.config['dumbo_cluster']['password'])
-        transport = ssh_dumbo.get_transport()
-        scp_dumbo = SCPClient(transport)
-        scp_dumbo.put(transfer_from_path, transfer_to_path)
-        scp_dumbo.close()
-        server.stop()
+        client = self.create_tunnel(transfer_from_path, transfer_to_path)
 
-    def createSSHClient(self, server, port, user, password):
-        client = paramiko.SSHClient()
+    def create_ssh_connection(self, client, server, port, user, password):
         client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(server, port, user, password)
         return client
 
-    def create_tunnel(self):
-        server = SSHTunnelForwarder(
-            self.config['nyu_cluster']['server'],
-            ssh_username=self.config['nyu_cluster']['username'],
-            ssh_password=self.config['nyu_cluster']['password'],
-            remote_bind_address=('localhost', 22)
-        )
-        return server
+    def create_tunnel(self, transfer_from_path, transfer_to_path):
+        with SSHTunnelForwarder(
+                (self.config['nyu_cluster']['server'], 22),
+                ssh_username=self.config['nyu_cluster']['username'],
+                ssh_password=self.config['nyu_cluster']['password'],
+                remote_bind_address=("dumbo.hpc.nyu.edu", 22),
+                local_bind_address=('127.0.0.1', self.config['dumbo_cluster']['port'])
+        ) as tunnel:
+            client = paramiko.SSHClient()
+            client.load_system_host_keys()
+            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            client.connect(self.config['dumbo_cluster']['server'],
+                           self.config['dumbo_cluster']['port'],
+                                   self.config['dumbo_cluster']['username'],
+                                   self.config['dumbo_cluster']['password'])
+            transport = client.get_transport()
+            scp_dumbo = SCPClient(transport)
+            scp_dumbo.put(transfer_from_path, transfer_to_path)
+            client.close()
+
