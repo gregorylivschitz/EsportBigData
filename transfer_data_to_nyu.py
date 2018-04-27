@@ -4,7 +4,7 @@ import logging
 logging.basicConfig(filename='esports_runner.log',level=logging.INFO)
 
 
-def transfer_to(transfer_from, transfer_to):
+def transfer_to(transfer_from, transfer_to, need_clean_up):
     logging.info("starting transfer from {} to {}".format(transfer_from, transfer_to))
     transfer_nyu = TransferToNYUCluster()
     if not os.path.exists(transfer_from):
@@ -14,7 +14,8 @@ def transfer_to(transfer_from, transfer_to):
     for data_file in data_files:
         transfer_from_file = os.path.join(transfer_from, '{}'.format(data_file))
         transfer_nyu.transfer(transfer_from_file, transfer_to)
-    clean_up(transfer_from)
+    if need_clean_up:
+        clean_up(transfer_from)
 
 def clean_up(transfer_from):
     logging.info("cleaning up {}".format(transfer_from))

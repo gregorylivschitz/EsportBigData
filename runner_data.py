@@ -18,6 +18,6 @@ def run():
         run_public_matches(mmr_from, mmr_to)
         mmr_process.delete_all()
         mmr_process.insert_mmr(mmr_from+1, mmr_to+1)
-        transfer_data_to_nyu.transfer_to(transfer_from, transfer_to)
+        transfer_data_to_nyu.transfer_to(transfer_from, transfer_to, True)
 if __name__ == '__main__':
     run()

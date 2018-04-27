@@ -9,7 +9,7 @@ def run():
     pinnacle_scraper.scrap()
     transfer_from = os.path.join(os.getcwd(), 'gamble_data')
     transfer_to = '/scratch/gl758/data_gambling/'
-    transfer_data_to_nyu.transfer_to(transfer_from, transfer_to)
+    transfer_data_to_nyu.transfer_to(transfer_from, transfer_to, True)
 
 if __name__ == '__main__':
     run()
