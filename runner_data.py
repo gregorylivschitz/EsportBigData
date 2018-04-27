@@ -5,7 +5,7 @@ import transfer_data_to_nyu
 
 
 def run():
-    transfer_from = os.path.join(os.getcwd(), 'data')
+    transfer_from = os.path.join(os.getcwd(), 'public_matchestemp')
     transfer_to = '/scratch/gl758/public_matchestemp/'
     mmr_to = 0
     while(mmr_to <= 9000):
