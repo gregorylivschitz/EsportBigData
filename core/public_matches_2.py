@@ -14,10 +14,14 @@ def run_public_matches(from_mmr, to_mmr):
 
     if not os.path.exists(directory):
         os.makedirs(directory)
+    count_calls = 0
     with open(file_path, 'a') as fd:
         for public_match in public_matches['rows']:
             time.sleep(1)
             match = requests.get("https://api.opendota.com/api/matches/" + str(public_match['match_id'])).json()
+            count_calls = count_calls + 1
             json.dump(match, fd)
+            if count_calls == 60:
+                time.sleep(60)
 
     logging.info("mmr_start: {} , mmr_end: {}".format(from_mmr, to_mmr))
