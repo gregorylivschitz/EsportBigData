@@ -5,15 +5,15 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import pandas as pd
-from core.url_visited import UrlVisited
-
+from core.middle_ware import UrlVisited
+import logging
+logging.basicConfig(filename='esports_runner',level=logging.INFO)
 
 class PinnacleScrapper():
 
     def __init__(self, game_name, base_url):
         self.game_name = game_name
         self.base_url = base_url
-        self.find_odds_for_league()
 
 
     def find_leagues(self):
@@ -53,7 +53,9 @@ class PinnacleScrapper():
                     df_pinnacle.to_csv(data_path, index=False)
                     url_visited.insert_url(league_url)
                 except TypeError as te:
-                    print('error processing {} moving on error is {}'.format(league_url, te))
+                    logging.info('error processing {} moving on error is {}'.format(league_url, te))
             else:
-                print('url {} is already present'.format(league_url))
+                logging.info('url {} is already present'.format(league_url))
 
+    def scrap(self):
+        self.find_leagues()

@@ -16,11 +16,12 @@ class UrlVisitedModel(Base, TimestampMixin):
     id = Column(Integer, primary_key=True)
     url_name = Column(String)
 
-class GameSeen(Base, TimestampMixin):
-    """GameSeen Object"""
-    __tablename__ = 'game_seen'
+class MmrProcessModel(Base, TimestampMixin):
+    """MmrProcess Object"""
+    __tablename__ = 'mmr_process'
     id = Column(Integer, primary_key=True)
-    url_name = Column(String)
+    mmr_start = Column(Integer)
+    mmr_end = Column(Integer)
 
 
 Base.metadata.create_all(engine)
