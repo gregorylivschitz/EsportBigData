@@ -11,7 +11,8 @@ def run():
     while(mmr_to <= 9000):
         mmr_process = MmrProcess()
         if mmr_process.get_first_mmr():
-            mmr_from, mmr_to=mmr_process.get_first_mmr()
+            first_mmr=mmr_process.get_first_mmr()
+            mmr_from, mmr_to = first_mmr.mmr_from, first_mmr.mmr_to
         else:
             mmr_from, mmr_to = 6000, 6001
         run_public_matches(mmr_from, mmr_to)
