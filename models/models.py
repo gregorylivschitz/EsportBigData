@@ -20,8 +20,8 @@ class MmrProcessModel(Base, TimestampMixin):
     """MmrProcess Object"""
     __tablename__ = 'mmr_process'
     id = Column(Integer, primary_key=True)
-    mmr_start = Column(Integer)
-    mmr_end = Column(Integer)
+    mmr_from = Column(Integer)
+    mmr_to = Column(Integer)
 
 
 Base.metadata.create_all(engine)

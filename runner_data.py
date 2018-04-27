@@ -5,8 +5,8 @@ import transfer_data_to_nyu
 
 
 def run():
-    transfer_from = os.path.join(os.getcwd(), 'game_data')
-    transfer_to = '/scratch/gl758/game_data/'
+    transfer_from = os.path.join(os.getcwd(), 'public_matchestemp')
+    transfer_to = '/scratch/gl758/public_matchestemp/'
     while(True):
         mmr_process = MmrProcess()
         if mmr_process.get_first_mmr():
