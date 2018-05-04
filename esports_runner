@@ -1,0 +1,34 @@
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4)
+INFO:paramiko.transport:Auth banner: b'** NOTICE: NYU Authorized Use Only **\n\nAccess and use, or causing access and use, of this computer system by anyone other than as permitted by New York University (NYU) is strictly prohibited by NYU and by law. Such use might subject an unauthorized user, including unauthorized employees, to criminal and civil penalties as well as NYU-initiated disciplinary proceedings. The use of this system is routinely monitored and recorded, and anyone accessing this system consents to such monitoring and recording.\n'
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_5.3)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4)
+INFO:paramiko.transport:Auth banner: b'** NOTICE: NYU Authorized Use Only **\n\nAccess and use, or causing access and use, of this computer system by anyone other than as permitted by New York University (NYU) is strictly prohibited by NYU and by law. Such use might subject an unauthorized user, including unauthorized employees, to criminal and civil penalties as well as NYU-initiated disciplinary proceedings. The use of this system is routinely monitored and recorded, and anyone accessing this system consents to such monitoring and recording.\n'
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_5.3)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data
+INFO:root:url https://www.pinnacle.com/en/odds/match/e-sports/dota-2/dota-2-epicenter is already present
+INFO:root:url https://www.pinnacle.com/en/odds/match/e-sports/dota-2/dota-2-taurora-invitational is already present
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data
+INFO:root:starting transfer from C:\Users\greg1\dev\EsportBigData\gamble_data to /scratch/gl758/data_gambling/
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4)
+INFO:paramiko.transport:Auth banner: b'** NOTICE: NYU Authorized Use Only **\n\nAccess and use, or causing access and use, of this computer system by anyone other than as permitted by New York University (NYU) is strictly prohibited by NYU and by law. Such use might subject an unauthorized user, including unauthorized employees, to criminal and civil penalties as well as NYU-initiated disciplinary proceedings. The use of this system is routinely monitored and recorded, and anyone accessing this system consents to such monitoring and recording.\n'
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_5.3)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4)
+INFO:paramiko.transport:Auth banner: b'** NOTICE: NYU Authorized Use Only **\n\nAccess and use, or causing access and use, of this computer system by anyone other than as permitted by New York University (NYU) is strictly prohibited by NYU and by law. Such use might subject an unauthorized user, including unauthorized employees, to criminal and civil penalties as well as NYU-initiated disciplinary proceedings. The use of this system is routinely monitored and recorded, and anyone accessing this system consents to such monitoring and recording.\n'
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_5.3)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:cleaning up C:\Users\greg1\dev\EsportBigData\gamble_data

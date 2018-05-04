@@ -22,6 +22,6 @@ def run_public_matches(from_mmr, to_mmr):
             count_calls = count_calls + 1
             json.dump(match, fd)
             if count_calls == 60:
-                time.sleep(60)
-
+                time.sleep(62)
+                count_calls = 0
     logging.info("mmr_start: {} , mmr_end: {}".format(from_mmr, to_mmr))

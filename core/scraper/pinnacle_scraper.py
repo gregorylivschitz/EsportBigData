@@ -49,7 +49,7 @@ class PinnacleScrapper():
                     df_pinnacle = dfs[0]
                     df_pinnacle = df_pinnacle[pd.notnull(df_pinnacle['team_name'])]
                     league_name = league_link.split('/')[-1]
-                    data_path = os.path.join(os.getcwd(), 'data', '{}.csv'.format(league_name))
+                    data_path = os.path.join(os.getcwd(), 'gamble_data', '{}.csv'.format(league_name))
                     df_pinnacle.to_csv(data_path, index=False)
                     url_visited.insert_url(league_url)
                 except TypeError as te:
@@ -58,4 +58,4 @@ class PinnacleScrapper():
                 logging.info('url {} is already present'.format(league_url))
 
     def scrap(self):
-        self.find_leagues()
+        self.find_odds_for_league()
