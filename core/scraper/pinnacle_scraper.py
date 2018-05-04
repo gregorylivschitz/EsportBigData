@@ -1,5 +1,5 @@
 import re
-
+import json
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -12,6 +12,8 @@ logging.basicConfig(filename='esports_runner',level=logging.INFO)
 class PinnacleScrapper():
 
     def __init__(self, game_name, base_url):
+        with open('config.json', 'r') as f:
+            self.config = json.load(f)
         self.game_name = game_name
         self.base_url = base_url
 
@@ -36,7 +38,10 @@ class PinnacleScrapper():
             if not url_visited.exists(url_name=league_url):
                 options = webdriver.ChromeOptions()
                 options.add_argument('headless')
-                browser = webdriver.Chrome(chrome_options=options)
+                if 'chrome_location' in self.config:
+                    browser = webdriver.Chrome(self.config['chrome_location'],chrome_options=options)
+                else:
+                    browser = webdriver.Chrome(chrome_options=options)
                 browser.get(league_url)
                 html = browser.page_source
                 league_soup = BeautifulSoup(html, 'html.parser')
