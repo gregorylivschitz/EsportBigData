@@ -19,7 +19,7 @@ class PinnacleScrapper():
 
 
     def find_leagues(self):
-        pinnicale_base_url = requests.get(self.base_url)
+        pinnicale_base_url = requests.get('{}/en/rtn'.format(self.base_url))
         if pinnicale_base_url.status_code == 200:
             pinnicale_html = pinnicale_base_url.content
             pinnicale_soup = BeautifulSoup(pinnicale_html, 'html.parser')
