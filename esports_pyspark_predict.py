@@ -39,19 +39,19 @@ df_find_by_team_id_keen_gaming = df_find_by_team_id_keen_gaming.select("account_
 df_2_team_union = df_find_by_team_id_secret.union(df_find_by_team_id_keen_gaming)
 df_players_join_2_teams = df_player_features_dropped.join(df_2_team_union, "account_id")
 
+df_players_last_start_time = df_players_join_2_teams.groupBy('account_id').agg(max('start_time').alias('start_time'))
+df_players_features = df_players_last_start_time.join(df_players_join_2_teams, ["account_id", "start_time"])
 
-
-df_player_features_for_2_teams = df_players_join_2_teams.withColumn('match_id_predict', lit(1))
-
+df_player_features_for_2_teams = df_players_features.withColumn('match_id_predict', lit(1))
 df_player_features_ordered = df_player_features_for_2_teams.withColumn("kills_order_col",struct(["is_radiant_predict","kills_avg"]))
 df_player_features_ordered = df_player_features_ordered.withColumn("deaths_order_col",struct(["is_radiant_predict","deaths_avg"]))
 df_player_features_ordered = df_player_features_ordered.withColumn("assists_order_col",struct(["is_radiant_predict","assists_avg"]))
 df_player_features_ordered = df_player_features_ordered.withColumn("gold_per_min_col",struct(["is_radiant_predict","gold_per_min_avg"]))
 
-df_match_id_radiant = df_player_features_ordered.select('match_id', 'radiant_win', 'start_time').distinct()
-df_stat_in_one_row = df_player_features_ordered.groupby("match_id").agg(collect_list("kills_order_col").alias("kills_order_col"), collect_list("deaths_order_col").alias("deaths_order_col"), collect_list("assists_order_col").alias("assists_order_col"), collect_list("gold_per_min_col").alias("gold_per_min_col"))
+df_match_id_radiant = df_player_features_ordered.select('match_id_predict', 'radiant_win', 'start_time').distinct()
+df_stat_in_one_row = df_player_features_ordered.groupby("match_id_predict").agg(collect_list("kills_order_col").alias("kills_order_col"), collect_list("deaths_order_col").alias("deaths_order_col"), collect_list("assists_order_col").alias("assists_order_col"), collect_list("gold_per_min_col").alias("gold_per_min_col"))
 
-df_players_features_with_win = df_stat_in_one_row.join(df_match_id_radiant, "match_id")
+
 
 def sorter(l):
     res = sorted(l, key=operator.itemgetter(0))
@@ -60,6 +60,6 @@ def sorter(l):
 
 sort_udf = udf(sorter, ArrayType(DoubleType()))
 
-df_players_features_with_win_in_one_row = df_players_features_with_win.select("match_id", "radiant_win","start_time", sort_udf("kills_order_col").alias("kills_avg"), sort_udf("deaths_order_col").alias("deaths_avg"), sort_udf("assists_order_col").alias("assists_avg"), sort_udf("gold_per_min_col").alias("gold_per_min_avg"))
+df_players_features_with_win_in_one_row = df_stat_in_one_row.select(sort_udf("kills_order_col").alias("kills_avg"), sort_udf("deaths_order_col").alias("deaths_avg"), sort_udf("assists_order_col").alias("assists_avg"), sort_udf("gold_per_min_col").alias("gold_per_min_avg"))
 
 df_only_valid_player_stats = df_players_features_with_win_in_one_row.where(size(col("kills_avg")) == 10)
