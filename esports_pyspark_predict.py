@@ -25,19 +25,21 @@ df_player_features = df_player.dropna()
 
 features = ['kills', 'deaths', 'assists', 'gold_per_min']
 for feature in features:
-    df_player_features = df_player_features.withColumn('{}_lag'.format(feature),lag(df_player_features[feature]).over(Window.partitionBy("account_id").orderBy("start_time")))
     wspec = Window.partitionBy("account_id").orderBy("start_time").rowsBetween(-9999999,0)
-    df_player_features = df_player_features.withColumn("{}_avg".format(feature), avg(df_player_features['{}_lag'.format(feature)]).over(wspec))
+    df_player_features = df_player_features.withColumn("{}_avg".format(feature), avg(df_player_features['{}'.format(feature)]).over(wspec))
 
 df_player_features_dropped = df_player_features.dropna()
 
-
+# df_player_features_dropped.write.json('/user/gl758/esports_players_cleaned/esports_players_no_lag')
+# df_player_features_dropped = spark.read.json('/user/gl758/esports_players_cleaned/esports_players_no_lag/*.json')
 df_find_by_team_id_secret = spark.read.json('/user/gl758/data_all/pro_team_players_data/1838315.json', mode='DROPMALFORMED')
 df_find_by_team_id_keen_gaming = spark.read.json('/user/gl758/data_all/pro_team_players_data/2626685.json', mode='DROPMALFORMED')
 df_find_by_team_id_secret = df_find_by_team_id_secret.select("account_id", lit(1).alias("is_radiant_predict"))
 df_find_by_team_id_keen_gaming = df_find_by_team_id_keen_gaming.select("account_id", lit(0).alias("is_radiant_predict"))
 df_2_team_union = df_find_by_team_id_secret.union(df_find_by_team_id_keen_gaming)
 df_players_join_2_teams = df_player_features_dropped.join(df_2_team_union, "account_id")
+
+
 
 df_player_features_for_2_teams = df_players_join_2_teams.withColumn('match_id_predict', lit(1))
 
