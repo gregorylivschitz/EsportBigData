@@ -34,15 +34,7 @@ lr = LogisticRegression(labelCol="label", featuresCol="features", maxIter=6)
 
 train, test = df_dota_features.randomSplit([0.7, 0.3], seed=777)
 
-# paramGrid = ParamGridBuilder().build()
-
 paramGrid = ParamGridBuilder().addGrid(lr.regParam, [0.1, 0.01]).build()
-
-# tvs = TrainValidationSplit(estimator=lr,
-#                            estimatorParamMaps=paramGrid,
-#                            evaluator=RegressionEvaluator(),
-#                            # 80% of the data will be used for training, 20% for validation.
-#                            trainRatio=0.8)
 
 crossval = CrossValidator(estimator=lr,
                           estimatorParamMaps=paramGrid,
