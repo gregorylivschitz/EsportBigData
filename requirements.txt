@@ -9,7 +9,7 @@ cryptography==2.2.2
 idna==2.6
 numpy==1.14.2
 pandas==0.22.0
-paramiko==2.4.1
+paramiko==2.10.1
 pyasn1==0.4.2
 pycparser==2.18
 PyNaCl==1.2.1
