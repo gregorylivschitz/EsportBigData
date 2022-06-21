@@ -7,7 +7,7 @@ cffi==1.11.5
 chardet==3.0.4
 cryptography==2.2.2
 idna==2.6
-numpy==1.14.2
+numpy==1.22.0
 pandas==0.22.0
 paramiko==2.4.1
 pyasn1==0.4.2
